@@ -111,24 +111,6 @@ intents.matches('DeployIntent', [
     }
 ]);
 
-intents.matches('GeneralChitChat', [
-
-	function (session, args, next) {
-		session.send('Hi, am doing great today thank you, what can I do for you today?');
-		session.send('I can build, deploy and test for you :-)');
-	}
-]);
-
-intents.matches(/^reset/i,[
-	function(session) {
-		session.userData.action = null
-		session.userData.application = null
-		session.userData.env = null;
-		session.send('As you wish, have forgotten all that you commanded earlier! Lets try again, shall we?');
-		session.endDialog();
-	}
-]);
-
 intents.matches('StatusIntent', [
 
 	function (session, args, next) {
@@ -168,25 +150,9 @@ intents.matches('StatusIntent', [
     }
 ]);
 
-intents.matches(/^change name/i, [
-    function (session) {
-        session.beginDialog('/profile');
-    },
-    function (session, results) {
-        session.send('Ok... Changed your name to %s', session.userData.name);
-    }
-]);
-
 intents.onDefault([
-    function (session, args, next) {
-        if (!session.userData.name) {
-            session.beginDialog('/profile');
-        } else {
-            next();
-        }
-    },
-    function (session, results) {
-        session.send('Hello %s!', session.userData.name);
+    function (session, args) {
+    	session.send("Hi, am OCE Ops Bot, I can deploy or provide you status on D1..D5 or T1..T6 environments!");
     }
 ]);
 
