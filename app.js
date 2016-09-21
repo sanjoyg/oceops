@@ -164,6 +164,7 @@ bot.dialog('/env',[
 
 	function (session,results,next) {
 		var promptStr = "Which Box ?";
+		console.log(results.response);
 		if (String(results.response).toUpperCase() == "DEV" || results.response == "1") {
 			builder.Prompts.choice(session, promptStr, ["D1","D2","D3","D4","D5"]);
 		} else {
