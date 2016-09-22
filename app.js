@@ -156,7 +156,7 @@ intents.matches('StatusIntent', [
             .textFormat(builder.TextFormat.xml)
             .attachments([
                 new builder.HeroCard(session)
-                    .title("Status")
+                    .title(session.userData.env + " Status")
                     .subtitle(session.userData.app)
                     .text(textMsg)
                     .images([
