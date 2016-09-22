@@ -139,10 +139,34 @@ intents.matches('StatusIntent', [
     },
 
     function (session, results) {
-    	if (session.userData.app == null)
+    	
+		/*if (session.userData.app == null)
     		session.send("Environment " + session.userData.env + " is up and running, everything healthy!");
     	else
-    		session.send(session.userData.app + " on Environment " + session.userData.env + " is up and running, everything healthy!");
+    		session.send(session.userData.app + " on " + session.userData.env + " is up and running, everything healthy!");
+    	*/
+
+    	var textMsg;
+    	if (session.userData.app == null)
+    		textMsg = "Environment " + session.userData.env + " is up and running, everything healthy!";
+    	else
+    		textMsg = session.userData.app + " on " + session.userData.env + " is up and running, everything healthy!";
+    	
+		var msg = new builder.Message(session)
+            .textFormat(builder.TextFormat.xml)
+            .attachments([
+                new builder.HeroCard(session)
+                    .title("Status")
+                    .subtitle(session.userData.app)
+                    .text(textMsg)
+                    .images([
+                        builder.CardImage.create(session, "http://grafana.org/assets/img/features/dashboard_ex.png")
+                    ])
+                    .tap(builder.CardAction.openUrl(session, "https://www.att.com"))
+            ]);
+
+        session.send(msg);
+
     	session.userData.app = null;
     	session.userData.env = null;
     	session.userData.action = null;
