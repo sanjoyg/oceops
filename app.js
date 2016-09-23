@@ -225,4 +225,4 @@ bot.dialog('/profile', [
         session.userData.name = results.response;
         session.endDialog();
     }
-]);
+]); 
